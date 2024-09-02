@@ -1,0 +1,389 @@
+:root {
+    --Bg: #000;
+    --Col: #fff;
+    --NotClickable: grey;
+    --nav: #333;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    color: var(--Col);
+    font-size: 1em;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--Bg);
+}
+
+.play-area {
+    display: grid;
+    width: 72vh;
+    height: 72vh;
+    grid-template-columns: auto auto auto;
+}
+
+.block {
+    display: flex;
+    width: 24vh;
+    height: 24vh;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: bold;
+    background-color: var(--NotClickable);
+    border: 3px solid var(--Col);
+}
+
+.click {
+    background-color: var(--Bg);
+}
+
+.sub_play-area {
+    display: grid;
+    width: 24vh;
+    height: 24vh;
+    grid-template-columns: auto auto auto;
+}
+
+.sub_block {
+    display: flex;
+    width: calc(24vh / 3);
+    height: calc(24vh / 3);
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: bold;
+    border: 1px solid var(--Col);
+}
+
+.click .sub_play-area .sub_block:hover {
+    cursor: pointer;
+    background: var(--Col);
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    width: 450px;
+    padding: 1.3rem;
+    min-height: 250px;
+    position: absolute;
+    background-color: var(--Bg);
+    border: 1px solid var(--Col);
+    border-radius: 15px;
+    z-index: 2;
+}
+
+.modal .flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal input {
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--Col);
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.hidden {
+    display: none;
+}
+
+#winnerHeading,
+#winnerHeadingComp {
+    font-size: large;
+    position: absolute;
+    top: 5%;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.4rem;
+    font-weight: 700;
+    background-color: var(--NotClickable);
+    color: var(--Col);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1em;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: var(--nav);
+}
+
+.topnav a {
+    float: left;
+    color: var(--Col);
+    text-align: center;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.topnav a:hover {
+    background-color: var(--Col);
+    color: var(--Bg);
+    cursor: pointer;
+}
+
+.qmodal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    width: 450px;
+    padding: 1.3rem;
+    min-height: 250px;
+    position: absolute;
+    top: 0%;
+    background-color: var(--Bg);
+    border: 1px solid var(--Col);
+    border-radius: 15px;
+    z-index: 5;
+}
+
+.qmodal .flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.qmodal input {
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--Col);
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+#themeSwitch {
+    float: right;
+}
+
+.qmodal p {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 0.4rem 0 0.2rem;
+}
+
+#exampleImg {
+    width: 100%;
+    height: 10%;
+}
+
+.hidden {
+    display: none;
+}
+
+.btn-close {
+    transform: translate(10px, -20px);
+    padding: 0.5rem 0.7rem;
+    background: white;
+    color: black;
+    border-radius: 50%;
+}
+
+#closeBtnNG,
+#closeBtnComp {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(10px, -20px);
+    padding: 0.5rem 0.7rem;
+    background: white;
+    color: black;
+    border-radius: 50%;
+}
+
+@media screen and (max-width: 555px) {
+    .topnav a {
+        font-size: 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 510px) {
+    .play-area {
+        width: 63vh;
+        height: 63vh;
+    }
+
+    .block {
+        width: 21vh;
+        height: 21vh;
+    }
+
+    .sub_play-area {
+        width: 21vh;
+        height: 21vh;
+    }
+
+    .sub_block {
+        width: 7vh;
+        height: 7vh;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .play-area {
+        width: 54vh;
+        height: 54vh;
+    }
+
+    .block {
+        width: 18vh;
+        height: 18vh;
+    }
+
+    .sub_play-area {
+        width: 18vh;
+        height: 18vh;
+    }
+
+    .sub_block {
+        width: 6vh;
+        height: 6vh;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    h1 {
+        z-index: 2;
+        position: absolute;
+        top: 20vh;
+    }
+
+    .play-area {
+        position: absolute;
+        top: 30vh;
+        width: 45vh;
+        height: 45vh;
+    }
+
+    .block {
+        width: 15vh;
+        height: 15vh;
+    }
+
+    .sub_play-area {
+        width: 15vh;
+        height: 15vh;
+    }
+
+    .sub_block {
+        width: 5vh;
+        height: 5vh;
+    }
+}
+
+@media screen and (max-width: 305px) {
+    .play-area {
+        width: 36vh;
+        height: 36vh;
+    }
+
+    .block {
+        width: 12vh;
+        height: 12vh;
+    }
+
+    .sub_play-area {
+        width: 12vh;
+        height: 12vh;
+    }
+
+    .sub_block {
+        width: 4vh;
+        height: 4vh;
+    }
+}
+
+@media (orientation: portrait) {
+    .play-area {
+        width: 90vw;
+        height: 90vw;
+    }
+
+    .block {
+        width: 30vw;
+        height: 30vw;
+    }
+
+    .sub_play-area {
+        width: 30vw;
+        height: 30vw;
+    }
+
+    .sub_block {
+        width: 10vw;
+        height: 10vw;
+    }
+
+    .modal {
+        width: 80vw;
+    }
+
+    .qmodal {
+        width: 80vw;
+        height: fit-content;
+    }
+
+    #exampleImg {
+        width: 100%;
+        height: 50%;
+    }
+
+    .click .sub_play-area .sub_block:hover {
+        cursor: pointer;
+        background: none;
+    }
+
+    .topnav a {
+        padding: 10px 8px;
+    }
+}
+
+span {
+    cursor: pointer;
+    color: rgb(0, 191, 255);
+}
+
+.copyMsg {
+    position: absolute;
+    bottom: 10vh;
+    right: 50%;
+    transform: translate(50%, 60px);
+    padding: 10px 20px;
+    background: rgb(0, 191, 255);
+    color: var(--Col);
+    border-radius: 5px;
+    font-size: 18px;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transition: transform ease-in-out 0.2s;
+}

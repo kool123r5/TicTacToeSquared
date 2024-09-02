@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tic Tac Toe Squared</title>
+        <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+        <link rel="stylesheet" href="style.css" />
+        <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+        <script>
+            const firebaseConfig = {
+                apiKey: "AIzaSyAfpYhhxaigcSXA2fCDC5Gh5MfWNOqWDNI",
+                authDomain: "tic-tac-toe-squared-b5ae4.firebaseapp.com",
+                projectId: "tic-tac-toe-squared-b5ae4",
+                storageBucket: "tic-tac-toe-squared-b5ae4.appspot.com",
+                messagingSenderId: "181086851003",
+                appId: "1:181086851003:web:131900c7e653287e45fe9e",
+            };
+
+            const app = firebase.initializeApp(firebaseConfig);
+        </script>
+    </head>
+    <body>
+        <!-- https://tic-tac-toe-squared.netlify.app/?type=computer -->
+        <div class="topnav">
+            <a id="computerLink">Play Computer.</a>
+            <a href="https://tic-tac-toe-squared.netlify.app/?type=self">No friends?</a>
+            <a href="https://tic-tac-toe-squared.netlify.app/?type=friends">Friends?</a>
+            <a id="questionLink" href="">How to play.</a>
+            <a href="https://tic-tac-toe-squared.netlify.app/?mode=fog">Fog...</a>
+            <a id="themeSwitch"></a>
+        </div>
+        <div class="container">
+            <section id="qmodal" class="qmodal hidden">
+                <button id="closeBtn" class="btn-close">⨉</button>
+                <div>
+                    <h3>How to play</h3>
+                    <br />
+                    <h5>
+                        The game involves a 3x3 grid (9 large squares), but in each box there is a nested 3x3 grid (9 small
+                        squares).
+                    </h5>
+                    <br />
+                    <h5>
+                        When you play somewhere, the opponent has to play in the large square corresponding to the small
+                        square you just played in.
+                    </h5>
+                    <br />
+                    <h5>
+                        The first person to get three in a row, column, or diagonal in <b>any</b> of the 9 large boxes wins.
+                    </h5>
+                    <br />
+                    <h5>Example: (I now have to play in the black area)</h5>
+                    <img id="exampleImg" src="Example.png" alt="" />
+                </div>
+            </section>
+            <section id="modal" class="modal hidden">
+                <button id="closeBtnNG" class="btn-close">⨉</button>
+                <h1 id="winnerHeading"></h1>
+                <button id="newGameBtn" class="btn">New Game?</button>
+            </section>
+            <section id="compmodal" class="modal hidden">
+                <button id="closeBtnComp" class="btn-close">⨉</button>
+                <h1 id="winnerHeadingComp"></h1>
+                <h1 id="thingHeading" class="value">Random</h1>
+                <input type="range" id="rangeSliderComp" min="0" max="4" value="0" step="1" />
+                <button id="playCompBtn" class="btn">Play</button>
+            </section>
+            <h1 id="mainHeading">Tic-Tac-Toe Squared</h1>
+            <div id="play-area" class="play-area">
+                <div id="block_0" class="block">
+                    <div class="sub_play-area">
+                        <div id="sub_0_block_0" class="sub_block"></div>
+                        <div id="sub_0_block_1" class="sub_block"></div>
+                        <div id="sub_0_block_2" class="sub_block"></div>
+                        <div id="sub_0_block_3" class="sub_block"></div>
+                        <div id="sub_0_block_4" class="sub_block"></div>
+                        <div id="sub_0_block_5" class="sub_block"></div>
+                        <div id="sub_0_block_6" class="sub_block"></div>
+                        <div id="sub_0_block_7" class="sub_block"></div>
+                        <div id="sub_0_block_8" class="sub_block"></div>
+                    </div>
+                </div>
+                <div id="block_1" class="block">
+                    <div class="sub_play-area">
+                        <div id="sub_1_block_0" class="sub_block"></div>
+                        <div id="sub_1_block_1" class="sub_block"></div>
+                        <div id="sub_1_block_2" class="sub_block"></div>
+                        <div id="sub_1_block_3" class="sub_block"></div>
+                        <div id="sub_1_block_4" class="sub_block"></div>
+                        <div id="sub_1_block_5" class="sub_block"></div>
+                        <div id="sub_1_block_6" class="sub_block"></div>
+                        <div id="sub_1_block_7" class="sub_block"></div>
+                        <div id="sub_1_block_8" class="sub_block"></div>
+                    </div>
+                </div>
+                <div id="block_2" class="block">
+                    <div class="sub_play-area">
+                        <div id="sub_2_block_0" class="sub_block"></div>
+                        <div id="sub_2_block_1" class="sub_block"></div>
+                        <div id="sub_2_block_2" class="sub_block"></div>
+                        <div id="sub_2_block_3" class="sub_block"></div>
+                        <div id="sub_2_block_4" class="sub_block"></div>
+                        <div id="sub_2_block_5" class="sub_block"></div>
+                        <div id="sub_2_block_6" class="sub_block"></div>
+                        <div id="sub_2_block_7" class="sub_block"></div>
+                        <div id="sub_2_block_8" class="sub_block"></div>
+                    </div>
+                </div>
+                <div id="block_3" class="block">
+                    <div class="sub_play-area">
+                        <div id="sub_3_block_0" class="sub_block"></div>
+                        <div id="sub_3_block_1" class="sub_block"></div>
+                        <div id="sub_3_block_2" class="sub_block"></div>
+                        <div id="sub_3_block_3" class="sub_block"></div>
+                        <div id="sub_3_block_4" class="sub_block"></div>
+                        <div id="sub_3_block_5" class="sub_block"></div>
+                        <div id="sub_3_block_6" class="sub_block"></div>
+                        <div id="sub_3_block_7" class="sub_block"></div>
+                        <div id="sub_3_block_8" class="sub_block"></div>
+                    </div>
+                </div>
+                <div id="block_4" class="block">
+                    <div class="sub_play-area">
+                        <div id="sub_4_block_0" class="sub_block"></div>
+                        <div id="sub_4_block_1" class="sub_block"></div>
+                        <div id="sub_4_block_2" class="sub_block"></div>
+                        <div id="sub_4_block_3" class="sub_block"></div>
+                        <div id="sub_4_block_4" class="sub_block"></div>
+                        <div id="sub_4_block_5" class="sub_block"></div>
+                        <div id="sub_4_block_6" class="sub_block"></div>
+                        <div id="sub_4_block_7" class="sub_block"></div>
+                        <div id="sub_4_block_8" class="sub_block"></div>
+                    </div>
+                </div>
+                <div id="block_5" class="block">
+                    <div class="sub_play-area">
+                        <div id="sub_5_block_0" class="sub_block"></div>
+                        <div id="sub_5_block_1" class="sub_block"></div>
+                        <div id="sub_5_block_2" class="sub_block"></div>
+                        <div id="sub_5_block_3" class="sub_block"></div>
+                        <div id="sub_5_block_4" class="sub_block"></div>
+                        <div id="sub_5_block_5" class="sub_block"></div>
+                        <div id="sub_5_block_6" class="sub_block"></div>
+                        <div id="sub_5_block_7" class="sub_block"></div>
+                        <div id="sub_5_block_8" class="sub_block"></div>
+                    </div>
+                </div>
+                <div id="block_6" class="block">
+                    <div class="sub_play-area">
+                        <div id="sub_6_block_0" class="sub_block"></div>
+                        <div id="sub_6_block_1" class="sub_block"></div>
+                        <div id="sub_6_block_2" class="sub_block"></div>
+                        <div id="sub_6_block_3" class="sub_block"></div>
+                        <div id="sub_6_block_4" class="sub_block"></div>
+                        <div id="sub_6_block_5" class="sub_block"></div>
+                        <div id="sub_6_block_6" class="sub_block"></div>
+                        <div id="sub_6_block_7" class="sub_block"></div>
+                        <div id="sub_6_block_8" class="sub_block"></div>
+                    </div>
+                </div>
+                <div id="block_7" class="block">
+                    <div class="sub_play-area">
+                        <div id="sub_7_block_0" class="sub_block"></div>
+                        <div id="sub_7_block_1" class="sub_block"></div>
+                        <div id="sub_7_block_2" class="sub_block"></div>
+                        <div id="sub_7_block_3" class="sub_block"></div>
+                        <div id="sub_7_block_4" class="sub_block"></div>
+                        <div id="sub_7_block_5" class="sub_block"></div>
+                        <div id="sub_7_block_6" class="sub_block"></div>
+                        <div id="sub_7_block_7" class="sub_block"></div>
+                        <div id="sub_7_block_8" class="sub_block"></div>
+                    </div>
+                </div>
+                <div id="block_8" class="block">
+                    <div class="sub_play-area">
+                        <div id="sub_8_block_0" class="sub_block"></div>
+                        <div id="sub_8_block_1" class="sub_block"></div>
+                        <div id="sub_8_block_2" class="sub_block"></div>
+                        <div id="sub_8_block_3" class="sub_block"></div>
+                        <div id="sub_8_block_4" class="sub_block"></div>
+                        <div id="sub_8_block_5" class="sub_block"></div>
+                        <div id="sub_8_block_6" class="sub_block"></div>
+                        <div id="sub_8_block_7" class="sub_block"></div>
+                        <div id="sub_8_block_8" class="sub_block"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="copyMsg" class="copyMsg hidden">Link has been copied to clipboard.</div>
+        </div>
+    </body>
+    <script src="script.js" defer></script>
+</html>
